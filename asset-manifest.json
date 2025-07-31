@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/PsyTest/static/css/main.7acaea2f.css",
+    "main.js": "/PsyTest/static/js/main.1c37b54a.js",
+    "index.html": "/PsyTest/index.html",
+    "main.7acaea2f.css.map": "/PsyTest/static/css/main.7acaea2f.css.map",
+    "main.1c37b54a.js.map": "/PsyTest/static/js/main.1c37b54a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7acaea2f.css",
+    "static/js/main.1c37b54a.js"
+  ]
+}
