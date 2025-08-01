@@ -20,18 +20,12 @@ export const App = () => {
         setSelected(null);
         setIsCorrect(null);
       }, 1000);
-    } else {
-      // При неправильній відповіді нічого не перемикається — тільки підсвітка
-      // selected та isCorrect залишаються встановленими
     }
   };
 
   if (currentQuestion >= questions.length) {
     return (
-      <div
-        className="flex justify-center items-center h-screen"
-        style={{ fontSize: '26px' }}
-      >
+      <div className="flex justify-center items-center h-screen text-base sm:text-lg md:text-xl lg:text-2xl">
         Ви завершили тест! Правильних відповідей: {correctCount} з {questions.length}
       </div>
     );
@@ -40,12 +34,9 @@ export const App = () => {
   const { question, options } = questions[currentQuestion];
 
   return (
-    <div
-      className="flex justify-center items-center h-screen bg-gray-50 px-4 relative"
-      style={{ fontSize: '26px' }}
-    >
+    <div className="flex justify-center items-center h-screen bg-gray-50 px-4 relative text-base sm:text-lg md:text-xl lg:text-2xl">
       {/* Лічильник правильних відповідей */}
-      <div className="absolute top-4 right-4 bg-white border border-gray-300 rounded-full px-4 py-2 text-gray-700 shadow-md text-xl">
+      <div className="absolute top-4 right-4 bg-white border border-gray-300 rounded-full px-4 py-2 text-gray-700 shadow-md text-sm sm:text-base md:text-lg">
         ✅ {correctCount}/{questions.length}
       </div>
 
@@ -75,9 +66,8 @@ export const App = () => {
                 <button
                   key={index}
                   onClick={() => handleAnswer(index)}
-                  className={`w-full p-6 rounded-2xl border text-left font-medium transition-colors duration-300 ${bgClass}`}
-                  style={{ margin: '6px', fontSize: '26px' }}
-                  disabled={selected !== null && isCorrect} // заблокувати кнопки лише якщо вже правильно відповів
+                  className={`w-full p-4 sm:p-5 md:p-6 rounded-2xl border text-left font-medium transition-colors duration-300 ${bgClass} m-1 sm:m-2`}
+                  disabled={selected !== null && isCorrect}
                 >
                   {option}
                 </button>
@@ -88,7 +78,7 @@ export const App = () => {
 
         {/* Повідомлення "Правильно!" або "Неправильно!" */}
         {isCorrect !== null && (
-          <div className={`mt-8 text-2xl font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+          <div className={`mt-8 font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'} text-base sm:text-lg md:text-xl`}>
             {isCorrect ? '✅ Правильно!' : '❌ Неправильно. Спробуй ще раз'}
           </div>
         )}
