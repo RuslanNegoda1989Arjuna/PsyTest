@@ -24,8 +24,6 @@ export const App = () => {
           setCurrentQuestion((prev) => prev + 1);
           setSelected(null);
           setIsCorrect(null);
-        } else {
-          // Кінець тесту, можна нічого не робити
         }
       }, 1000);
     } else {
@@ -64,13 +62,16 @@ export const App = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50 px-4 relative text-base sm:text-lg md:text-xl lg:text-2xl">
+      {/* Лічильник правильних відповідей */}
       <div className="absolute top-4 right-4 bg-white border border-gray-300 rounded-full px-4 py-2 text-gray-700 shadow-md text-sm sm:text-base md:text-lg">
         ✅ {correctCount}/{questions.length}
       </div>
 
       <div className="max-w-4xl w-full text-center">
+        {/* Питання */}
         <div className="font-semibold mb-10 text-gray-800">{question}</div>
 
+        {/* Варіанти відповідей */}
         <div className="w-full max-w-2xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2">
             {options.map((option, index) => {
@@ -101,6 +102,7 @@ export const App = () => {
           </div>
         </div>
 
+        {/* Повідомлення про правильність */}
         {isCorrect !== null && (
           <div
             className={`mt-8 font-bold ${
@@ -111,7 +113,8 @@ export const App = () => {
           </div>
         )}
 
-        <div className="flex justify-between max-w-2xl mx-auto mt-8">
+        {/* Кнопки навігації + лічильник питання */}
+        <div className="flex justify-between items-center max-w-2xl mx-auto mt-8">
           <button
             onClick={goPrev}
             disabled={currentQuestion === 0}
@@ -119,6 +122,10 @@ export const App = () => {
           >
             Назад
           </button>
+
+          <div className="text-gray-700 font-semibold text-base sm:text-lg">
+            Питання {currentQuestion + 1} з {questions.length}
+          </div>
 
           <button
             onClick={goNext}
