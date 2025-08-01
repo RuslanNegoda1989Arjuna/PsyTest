@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/PsyTest/static/css/main.853f0850.css",
-    "main.js": "/PsyTest/static/js/main.99fa6c1d.js",
+    "main.js": "/PsyTest/static/js/main.7881e841.js",
     "index.html": "/PsyTest/index.html",
     "main.853f0850.css.map": "/PsyTest/static/css/main.853f0850.css.map",
-    "main.99fa6c1d.js.map": "/PsyTest/static/js/main.99fa6c1d.js.map"
+    "main.7881e841.js.map": "/PsyTest/static/js/main.7881e841.js.map"
   },
   "entrypoints": [
     "static/css/main.853f0850.css",
-    "static/js/main.99fa6c1d.js"
+    "static/js/main.7881e841.js"
   ]
 }
