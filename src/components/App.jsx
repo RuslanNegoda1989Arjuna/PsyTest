@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-
 import { questions } from '../components/question';
 
 export const App = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selected, setSelected] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
-  const [correctCount, setCorrectCount] = useState(0); // ✅ новий стейт
+  const [correctCount, setCorrectCount] = useState(0);
 
   const handleAnswer = (index) => {
     const correct = questions[currentQuestion].correctIndex === index;
@@ -14,12 +13,16 @@ export const App = () => {
     setIsCorrect(correct);
 
     if (correct) {
-      setCorrectCount((prev) => prev + 1); // ✅ оновлення лічильника
+      setCorrectCount((prev) => prev + 1);
+
       setTimeout(() => {
         setCurrentQuestion((prev) => prev + 1);
         setSelected(null);
         setIsCorrect(null);
       }, 1000);
+    } else {
+      // При неправильній відповіді нічого не перемикається — тільки підсвітка
+      // selected та isCorrect залишаються встановленими
     }
   };
 
@@ -41,7 +44,7 @@ export const App = () => {
       className="flex justify-center items-center h-screen bg-gray-50 px-4 relative"
       style={{ fontSize: '26px' }}
     >
-      {/* ✅ Лічильник у верхньому правому куті */}
+      {/* Лічильник правильних відповідей */}
       <div className="absolute top-4 right-4 bg-white border border-gray-300 rounded-full px-4 py-2 text-gray-700 shadow-md text-xl">
         ✅ {correctCount}/{questions.length}
       </div>
@@ -68,14 +71,13 @@ export const App = () => {
                 }
               }
 
-              
-
               return (
                 <button
                   key={index}
                   onClick={() => handleAnswer(index)}
                   className={`w-full p-6 rounded-2xl border text-left font-medium transition-colors duration-300 ${bgClass}`}
                   style={{ margin: '6px', fontSize: '26px' }}
+                  disabled={selected !== null && isCorrect} // заблокувати кнопки лише якщо вже правильно відповів
                 >
                   {option}
                 </button>
@@ -83,7 +85,13 @@ export const App = () => {
             })}
           </div>
         </div>
-        
+
+        {/* Повідомлення "Правильно!" або "Неправильно!" */}
+        {isCorrect !== null && (
+          <div className={`mt-8 text-2xl font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
+            {isCorrect ? '✅ Правильно!' : '❌ Неправильно. Спробуй ще раз'}
+          </div>
+        )}
       </div>
     </div>
   );
