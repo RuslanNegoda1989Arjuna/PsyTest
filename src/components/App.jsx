@@ -14,22 +14,41 @@ export const App = () => {
     setSelected(index);
     setIsCorrect(correct);
 
-    // Скидаємо фокус з усіх кнопок
     buttonRefs.current.forEach((btn) => btn?.blur());
 
     if (correct) {
       setCorrectCount((prev) => prev + 1);
 
       setTimeout(() => {
-        setCurrentQuestion((prev) => prev + 1);
-        setSelected(null);
-        setIsCorrect(null);
+        if (currentQuestion < questions.length - 1) {
+          setCurrentQuestion((prev) => prev + 1);
+          setSelected(null);
+          setIsCorrect(null);
+        } else {
+          // Кінець тесту, можна нічого не робити
+        }
       }, 1000);
     } else {
       setTimeout(() => {
         setSelected(null);
         setIsCorrect(null);
       }, 1000);
+    }
+  };
+
+  const goNext = () => {
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setSelected(null);
+      setIsCorrect(null);
+    }
+  };
+
+  const goPrev = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
+      setSelected(null);
+      setIsCorrect(null);
     }
   };
 
@@ -45,16 +64,13 @@ export const App = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50 px-4 relative text-base sm:text-lg md:text-xl lg:text-2xl">
-      {/* Лічильник правильних відповідей */}
       <div className="absolute top-4 right-4 bg-white border border-gray-300 rounded-full px-4 py-2 text-gray-700 shadow-md text-sm sm:text-base md:text-lg">
         ✅ {correctCount}/{questions.length}
       </div>
 
       <div className="max-w-4xl w-full text-center">
-        {/* Питання */}
         <div className="font-semibold mb-10 text-gray-800">{question}</div>
 
-        {/* Варіанти відповіді */}
         <div className="w-full max-w-2xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2">
             {options.map((option, index) => {
@@ -85,7 +101,6 @@ export const App = () => {
           </div>
         </div>
 
-        {/* Повідомлення "Правильно!" або "Неправильно!" */}
         {isCorrect !== null && (
           <div
             className={`mt-8 font-bold ${
@@ -95,6 +110,24 @@ export const App = () => {
             {isCorrect ? '✅ Правильно!' : '❌ Неправильно. Спробуй ще раз'}
           </div>
         )}
+
+        <div className="flex justify-between max-w-2xl mx-auto mt-8">
+          <button
+            onClick={goPrev}
+            disabled={currentQuestion === 0}
+            className="px-6 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+          >
+            Назад
+          </button>
+
+          <button
+            onClick={goNext}
+            disabled={currentQuestion === questions.length - 1}
+            className="px-6 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+          >
+            Вперед
+          </button>
+        </div>
       </div>
     </div>
   );
